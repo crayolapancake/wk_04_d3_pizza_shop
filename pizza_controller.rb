@@ -29,6 +29,20 @@ post "/pizza_orders" do
   erb( :create )
 end
 
+#edit
+get "/pizza_orders/:id/edit" do
+  @order = PizzaOrder.find(params[:id].to_i)
+  erb(:edit)
+end
+
+#update post
+post "/pizza_orders/:id" do
+  @order = PizzaOrder.new(params)
+  @order.update()
+  # erb (:update)
+  redirect to "/pizza_orders"
+end
+
 # Delete
 post "/pizza_orders/:id/delete" do
   @order = PizzaOrder.find(params[:id].to_i)
@@ -36,12 +50,8 @@ post "/pizza_orders/:id/delete" do
   redirect to "/pizza_orders"
 end
 
-#update
-post "/pizza_orders/:id/update" do
-  @order = PizzaOrder.find(params[:id].to_i)
-  @order.update(params)
-  erb( :edit )
-end
 
+
+#params is a hash
 
 # Your edit route will probably take users to a form, just like the new route. Only this time, the form should be populated with the correct data for the order we want to edit.
